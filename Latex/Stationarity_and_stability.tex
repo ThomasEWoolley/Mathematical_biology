@@ -1,0 +1,73 @@
+\chapter{Non-dimensionalisation}
+\begin{aquote}{Wild Thing. J. Bazell 2013.}
+\textit{In metric, one milliliter of water occupies one cubic centimeter, weighs one gram, and requires one calorie of energy to heat up by one degree centigrade — which is 1 percent of the difference between its freezing point and its boiling point. An amount of hydrogen weighing the same amount has exactly one mole of atoms in it. Whereas in the [imperial] system, the answer to "How much energy does it take to boil a room-temperature gallon of water?" is ``Go fuck yourself'', because you can't directly relate any of those quantities.}
+\end{aquote}
+
+
+\begin{example}[frametitle=Failure]
+As mentioned not all balances are valid, which is what we will seen in this example. Consider the following ODE system
+\begin{align}
+  \tikzmark{a}\dot{u}=k_0\tikzmark{b}+k_1\tikzmark{c}u-k_2uv, \quad u(0)=u_0,\label{Non-dim_9}\\
+ \nonumber \\
+    \tikzmark{e}\dot{v}=k_3\tikzmark{f}+k_4\tikzmark{g}v-k_2uv, \quad v(0)=v_0.\label{Non-dim_10}
+\tikz[overlay,remember picture]
+{\draw[square arrow1] (a.south) to (b.south);}
+\tikz[overlay,remember picture]
+{\draw[square arrow1] (b.south) to (c.south);}
+\tikz[overlay,remember picture]
+{\draw[square arrow1] (e.south) to (g.south);}
+\end{align}
+There are three variables $u$, $v$ and $t$ and so we need three balances. The chosen balances are illustrated on the equations using arrows. Extracting information from the balances we find that
+\bb
+\frac{[u]}{[t]}=k_0=k_1[u], \quad \frac{[v]}{[t]}=k_4[v].
+\ee
+From this point we quickly discover that
+\bb
+[t]=\frac{1}{k_1} \textrm{ and } [t]=\frac{1}{k_4}.
+\ee
+Since, generally, $k_1\neq k_4$ we cannot satisfy both balances, thus, we must consider a different non-dimensionalisation.
+
+One possible valid non-dimensionalisation is
+\begin{align}
+  \tikzmark{a}\dot{u}=k_0\tikzmark{b}+k_1\tikzmark{c}u-k_2uv, \quad u(0)=u_0,\nonumber\\
+ \nonumber \\
+    \tikzmark{e}\dot{v}=k_3\tikzmark{f}+k_4\tikzmark{g}v-k_2uv, \quad v(0)=v_0.\nonumber
+\tikz[overlay,remember picture]
+{\draw[square arrow1] (a.south) to (b.south);}
+\tikz[overlay,remember picture]
+{\draw[square arrow1] (b.south) to (c.south);}
+\tikz[overlay,remember picture]
+{\draw[square arrow1] (e.south) to (f.south);}
+\end{align}
+See your problem sheets for details.
+\end{example}
+
+
+%\begin{figure}[!!!h!!!tb]
+%\centering
+%\subfigure[\label{IC_0.1}]{\includegraphics[width=\ttp]{../Pictures/Comparing_pendulums_IC_1.png}}
+%\subfigure[\label{IC_1}]{\includegraphics[width=\ttp]{../Pictures/Comparing_pendulums_IC_10.png}}
+%\caption{\label{Different_ICs}Comparing \eqns{Spring_eqn}{Bob_eqn} with initial conditions (a) $y=0=\theta$ and (b) $y=1=\theta$. Parameter values $r=g=k=m=1$.}
+%\end{figure}
+%
+%
+%\begin{example}[frametitle=Zombies]\label{Zombies}
+%Humans, $H$ and zombies, $Z$ interact through the following three interactions \see{Zombie_picture}]:
+%\end{example}
+%\begin{figure}[!!!h!!!tb]
+%\centering
+%\includegraphics[width=\tp]{../Pictures/Zombies.png}
+%\caption{\label{Zombie_picture} Possible outcomes of human-zombie interactions.}
+%\end{figure}
+
+\section{Check list}
+By the end of this chapter you should be able to:
+\begin{todolist}
+\item non-dimensionalise a system of equations using direct substitution, or the arrow method;
+\item demonstrate that the derived scales have the correct dimension;
+\item demonstrate that remaining parameter groupings are non-dimensional;
+\end{todolist}
+
+
+
+

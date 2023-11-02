@@ -1,0 +1,320 @@
+\documentclass[oneside]{book}
+\usepackage{hyperref}
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+            {-2.5ex\@plus -1ex \@minus -.25ex}%
+            {1.25ex \@plus .25ex}%
+            {\normalfont\normalsize\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{4}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{tikzsymbols}
+\usepackage{tikz}
+
+\usepackage{tcolorbox}
+\usetikzlibrary{arrows.meta}
+\definecolor{COLR}{rgb}{1,1,1}
+\newcommand{\tikzmark}[1]{%
+    \tikz[overlay,remember picture] \node (#1) {};
+                          }
+\tikzset{square arrow1/.style={%
+    -{Stealth[length=3mm]},<->,rounded corners,draw=red,%
+    to path={-- ++(0,-0.25) -| (\tikztotarget)}}
+                                }
+\tikzset{square arrow2/.style={%
+    -{Stealth[length=3mm]},<->,rounded corners,draw=blue,%
+    to path={-- ++(0,-0.3) -| (\tikztotarget)}}
+                                }
+
+%\newenvironment{COL}{\par\color{COLR}}{\par}
+%\newenvironment{COL}{%
+ %   \leavevmode\color{COLR}\ignorespaces%
+%}{%
+%}%
+\newcommand{\COL}[1]{{\leavevmode\color{COLR}[#1]}}
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.markings,arrows}
+
+\tikzset
+  {every pin/.style={pin edge={<-}}
+  ,>=stealth
+  ,flow/.style=
+    {decoration=
+      {markings
+      ,mark=at position #1 with {\arrow{>}}
+      }
+    ,postaction={decorate}
+    }
+  ,flow/.default=0.5
+  }
+\newcommand\inlayscale{}
+\newcommand\inlaycaption[1]{{#1}}
+\newcommand\newinlay[4][0.18]%
+  {\renewcommand\inlayscale{#1}%
+   \newsavebox#2%
+   \savebox#2%
+     {\begin{tabular}{@{}c@{}}
+        #4\\[-1ex]
+        \inlaycaption{#3}\\[-1ex]
+      \end{tabular}%
+     }%
+  }
+\newcommand\inlay[1]{\usebox{#1}}
+
+
+\newinlay\saddle{saddle}%
+  {\begin{tikzpicture}[scale=\inlayscale]
+     \foreach \sx in {+,-}
+      {\draw[flow] (\sx4,0) -- (0,0);
+       \draw[flow] (0,0) -- (0,\sx4);
+       \foreach \sy in {+,-}
+         \foreach \a/\b/\c/\d in {2.8/0.3/0.7/0.6,3.9/0.4/1.3/1.1}
+           \draw[flow] (\sx\a,\sy\b)
+              .. controls (\sx\c,\sy\d) and (\sx\d,\sy\c)
+              .. (\sx\b,\sy\a);
+      }
+   \end{tikzpicture}%
+  }
+
+\newinlay\sink{stable node}%
+  {\begin{tikzpicture}[scale=\inlayscale]
+    \foreach \sx in {+,-}
+     {\draw[flow] (\sx4,0) -- (0,0);
+      \draw[flow] (0,\sx4) -- (0,0);
+      \foreach \sy in {+,-}
+         \foreach \a/\b in {2/1,3/0.44}
+          \draw[flow,domain=\sx\a:0] plot (\x, {\sy\b*\x*\x});
+     }
+   \end{tikzpicture}%
+  }
+
+\newinlay\source{unstable node}%
+  {\begin{tikzpicture}[scale=\inlayscale]
+     \foreach \sx in {+,-}
+      {\draw[flow] (0,0) -- (\sx4,0);
+       \draw[flow] (0,0) -- (0,\sx4);
+       \foreach \sy in {+,-}
+         \foreach \a/\b in {2/1,3/0.44}
+           \draw[flow,domain=0:\sx\a] plot (\x, {\sy\b*\x*\x});
+      }
+   \end{tikzpicture}%
+  }
+
+
+
+\newinlay\spiralsink{stable spiral}%
+  {\begin{tikzpicture}[scale=\inlayscale]
+     \draw (-4,0) -- (4,0);
+     \draw (0,-4) -- (0,4);
+     \draw[samples=100,smooth,domain=27:7] plot ({\x r}: {0.005*\x*\x});
+     \draw[->] ({26 r}: {0.005*26*26}) -- +(0.01,-0.01);
+   \end{tikzpicture}%
+  }
+
+\newinlay\spiralsource{unstable spiral}%
+  {\begin{tikzpicture}[scale=\inlayscale]
+     \draw (-4,0) -- (4,0);
+     \draw (0,-4) -- (0,4);
+     \draw [samples=100,smooth,domain=10:28] plot ({-\x r}: {0.005*\x*\x});
+     \draw[<-] ({-27.5 r}: {0.005*27.5*27.5}) -- +(0.01,-0.008);
+   \end{tikzpicture}%
+  }
+
+\newinlay[0.15]\centre{center}%
+  {\begin{tikzpicture}[scale=\inlayscale]
+     \draw (-4,0) -- (4,0);
+     \draw (0,-4) -- (0,4);
+     \foreach \r in {1,2,3} \draw[flow=0.63] (\r,0) arc (0:-360:\r cm);
+   \end{tikzpicture}%
+  }
+
+
+\usepackage{slashed}
+\usepackage{lineno}
+\usepackage{latexsym}
+\usepackage{subfigure}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\renewcommand{\l}{\left(}
+\renewcommand{\r}{\right)}
+\newcommand{\bb}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newtheorem{defin}{Definition}
+\usepackage{multirow}
+%\usepackage{ctable}
+\usepackage{bm}
+\usepackage{enumerate}
+\newcommand{\D}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\DD}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\rd}{\text{ d}}
+\usepackage{framed}
+\newcommand{\see}[1]{(see Figure \ref{#1})}
+\newcommand{\fig}[1]{Figure \ref{#1}}
+\newcommand{\figs}[2]{figures \ref{#1} and \ref{#2}}
+\newcommand{\sect}[1]{Section \ref{#1}}
+\newcommand{\app}[1]{Appendix \ref{#1}}
+\newcommand{\chap}[1]{Chapter \ref{#1}}
+\newcommand{\eqn}[1]{equation \eqref{#1}}
+\newcommand{\eqns}[2]{equations \eqref{#1} and \eqref{#2}}
+\newcommand{\eqnto}[2]{equations \eqref{#1}-\eqref{#2}}
+%\usepackage{authblk}
+\usepackage{url}
+\usepackage{soul}
+\newcommand{\eg}{\emph{e.g.} }
+\newcommand{\bn}{\bm{n}}
+\newcommand{\tr}{\textrm{tr}}
+\newcommand{\bu}{\bm{u}}
+\newcommand{\ie}{\emph{i.e.} }
+\newcommand{\Chapter}[1]{\chapter{#1}\label{#1}}
+\newcommand{\Section}[1]{\section{#1}\label{#1}}
+\newcommand{\Subsection}[1]{\subsection{#1}\label{#1}}
+\newcommand{\Subsubsection}[1]{\subsubsection{#1}\label{#1}}
+\newcommand{\Appendix}[1]{\appendix{#1}\label{#1}}
+\usepackage[margin=3cm,centering]{geometry}
+\usepackage[geometry]{ifsym}
+\makeatletter
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+\urlstyle{leo}
+\usepackage{multirow}
+\usepackage{blkarray}
+\usepackage{soul}
+\usepackage{framed}
+\usepackage{color}
+\usepackage{setspace}
+\newcommand{\tttttp}{.2\textwidth}
+\newcommand{\ttttp}{.24\textwidth}
+\newcommand{\tttp}{.32\textwidth}
+\newcommand{\ttp}{.45\textwidth}
+\newcommand{\tp}{\textwidth}
+\newcommand{\tbo}{.6\textwidth}
+\usepackage[]{natbib} 
+ \raggedbottom
+     \setlength{\parskip}{0pt}
+\usepackage{subfiles}
+\usepackage{caption}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{xcolor}
+
+\newenvironment{bolditemize}{\begin{itemize} }{\end{itemize}}
+\expandafter\def\expandafter\bolditemize\expandafter{%
+ \bolditemize \let\olditem\item
+  \def\item[##1]{\olditem \textbf{##1}}}
+
+% EXAMPLES
+%% set the counter for your environment
+\newcounter{example}
+\renewcommand{\theexample}{\thesection.\arabic{example}}
+
+%% define the style
+\mdfdefinestyle{example}{%
+    linecolor=blue,
+    outerlinewidth=2pt,
+    %innerbottommargin=200pt,
+    bottomline=true,
+    leftline=false,rightline=false,
+    skipabove=\baselineskip,
+    skipbelow=\baselineskip,
+    frametitle=\mbox{},
+}
+%% setup the environments
+%%% with number
+\newmdenv[%
+    style=example,
+    settings={\global\refstepcounter{example}},
+    frametitlefont={\bfseries Example~\theexample\quad},
+]{example}
+%%% without number (starred version)
+\newmdenv[%
+    style=example,
+    frametitlefont={\bfseries Example~\quad},
+]{example*}
+
+% BOXES
+%% set up the environment
+\newmdenv[%
+    backgroundcolor=red!8,
+    linecolor=red,
+    outerlinewidth=1pt,
+    roundcorner=5mm,
+    skipabove=\baselineskip,
+    skipbelow=\baselineskip,
+]{cboxed}
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+
+%\includeonly{Introduction,Population_modelling}
+%\includeonly{Spatial_systems,Pattern_formation,Appendices}
+\begin{document}
+{\centering
+    \vfill
+{\bfseries\Huge
+        Mathematical Biology\\
+        \vskip2cm    }    
+\begin{figure}[!!!h!!!tb]
+\centering
+\includegraphics[width=\textwidth]{../Pictures/Spots_to_stripes_2.png}
+\end{figure}
+\vskip2cm    
+{\bfseries\LARGE
+         Thomas E. Woolley\\       
+    }
+    \vskip2cm    
+{\bfseries\large
+         Based on the notes of Prof. Eamonn A. Gaffney (University of Oxford)\\       
+    }
+    \vfill
+    Last edited on: \today }
+
+{\let\cleardoublepage\clearpage 
+\tableofcontents
+} 
+
+\include{Introduction}
+\include{Population_modelling}
+\include{Spatial_systems}
+\include{Pattern_formation}
+\include{Appendices}
+
+
+\bibliographystyle{unsrtnat}
+\end{document}

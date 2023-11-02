@@ -1,0 +1,47 @@
+\contentsline {chapter}{\numberline {1}Introduction}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}References}{4}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Things you have forgotten}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}How to model a system}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Law of Mass Action}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Non-dimensionalisation}{9}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Examples of non-dimensionalisation through substitution of variables}{10}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Examples of non-dimensionalisation through the arrow method}{10}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Stationary states and stability}{11}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Linear stability}{12}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Curve sketching}{17}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Specific curves and their properties}{17}{subsection.2.6.1}%
+\contentsline {subsubsection}{\numberline {2.6.1.1}Polynomials}{17}{subsubsection.2.6.1.1}%
+\contentsline {subsubsection}{\numberline {2.6.1.2}Hill functions}{18}{subsubsection.2.6.1.2}%
+\contentsline {section}{\numberline {2.7}Phase planes}{18}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}One-dimensional}{18}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}Two-dimensional}{20}{subsection.2.7.2}%
+\contentsline {section}{\numberline {2.8}Check list}{21}{section.2.8}%
+\contentsline {chapter}{\numberline {3}Population modelling}{24}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Continuum modelling}{24}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Disease transmission}{30}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Discrete modelling}{37}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Cobwebbing}{39}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Stability of discrete equations}{39}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Oscillatory states in discrete equations}{42}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Check list}{46}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Spatial systems}{47}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Deriving the diffusion equation}{47}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Deriving the taxis equation}{52}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Travelling waves}{53}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Fisher's equation}{54}{subsection.4.3.1}%
+\contentsline {section}{\numberline {4.4}Check list}{58}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Pattern Formation}{60}{chapter.5}%
+\contentsline {section}{\numberline {5.1}French flag patterning}{60}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Digit specification in the limb bud}{63}{subsection.5.1.1}%
+\contentsline {section}{\numberline {5.2}The Turing instability}{63}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Diffusion Driven Instability}{63}{subsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.1.1}A note on initial conditions}{65}{subsubsection.5.2.1.1}%
+\contentsline {subsubsection}{\numberline {5.2.1.2}A note on boundary conditions}{65}{subsubsection.5.2.1.2}%
+\contentsline {subsection}{\numberline {5.2.2}Stability without diffusion}{66}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Instability with diffusion}{66}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Corollaries to Turing's theory}{69}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}A comment on domain size and spatial dimensions}{73}{subsection.5.2.5}%
+\contentsline {section}{\numberline {5.3}Do they exist?}{76}{section.5.3}%
+\contentsline {chapter}{\numberline {A}Proof of stability criterion for scalar ODE equations}{79}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Proof of stability criterion for ODE systems}{80}{appendix.B}%
+\contentsline {chapter}{\numberline {C}Characterising the stability of a two-dimensional ODE system}{81}{appendix.C}%

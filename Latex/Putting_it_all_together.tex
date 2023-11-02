@@ -1,0 +1,268 @@
+\chapter{Putting it all together}
+Throughout this course we have learned how to construct an ODE system from an intuitive understanding of the dynamics (\chap{How to model a system}). From this point we simplify the system using non-dimensionalisation, which reduces the number of free parameters that we need to consider (\chap{Non-dimensionalisation}). Having combined the system parameters into smaller groupings we are able derive how the systems steady states and stability rest on these parameters (chapters \ref{Stationary states and stability} and \ref{Stability of ODE systems}). Finally, we saw how to illustrate these local dependencies using a phase plane, in order to better understand the global phenomena (\chap{Phase plane analysis}). In this chapter we combine all of these techniques and completely analyse a number of examples.
+
+\section{Fish example}
+\begin{example}[frametitle=Fishing]
+Consider a lake with fish that attract fishermen. We wish to model the fish-fishermen interaction under the following assumptions:
+\begin{itemize}
+\item in the absence of fishing the fish population growth is proportional to the current population, but is suppressed by binary competition;
+\item the presence of fishermen suppresses the fish growth rate at a rate jointly proportional to the size of the fish and fisherman populations;
+\item fishermen are attracted to the lake at a rate directly proportional to the number of fish in the lake;
+\item binary competition between fishermen discourages fishermen.
+\end{itemize}
+\COL{\subsection{Model the system}}
+\COL{We convert these rules into interaction equations. Let $F$ stand for fish and $M$ stand for fishermen,
+\begin{align}
+F&\mathrel{\mathop{\rightleftarrows}^{k_1}_{k_{-1}}}2F,\label{Fish_eqn_1}\\
+M+F&\stackrel{k_2}{\rightarrow}M,\\
+F&\stackrel{k_3}{\rightarrow}F+M,\\
+M+M&\stackrel{k_4}{\rightarrow}M.
+\end{align}
+}\COL{Next we use the Law of Mass Action to convert the interaction equations into ODEs,
+\begin{align}
+\dot{F}&=k_1F-k_{-1}F^2-k_2FM,\\
+\dot{M}&=k_3F-k_4M^2.
+\end{align}}
+
+\subsection{Non-dimensionalise}
+\COL{
+We have three variables in this system: $F$, $M$ and $t$, thus, we need three valid balances to define the system. We define our non-dimensionalised variables to be $F=[F]u$, $M=[M]v$ and $t=[t]t'$, with the understanding that the bracketed variables are the dimensional part. Although there are many way we could non-dimensionalise this system, we choose the following,}
+\begin{align}
+\tikzmark{a}\dot{F}&=k_1\tikzmark{c}F-k_{-1}\tikzmark{d}F^2-k_2\tikzmark{b}FM, \quad F(0)=F_0,\label{Dim_fish_1}\\
+\nonumber\\
+\dot{M}&=k_3\tikzmark{e}F-k_4\tikzmark{f}M^2,\quad M(0)=M_0.\label{Dim_fish_2}
+\tikz[overlay,remember picture]
+{\draw[square arrow1] (a.south) to (b.south);}
+\tikz[overlay,remember picture]
+{\draw[square arrow2] (c.south) to (d.south);}
+\tikz[overlay,remember picture]
+{\draw[square arrow1] (e.south) to (f.south);}
+\end{align}
+\COL{From these balances we immediately write down
+\begin{align}
+\frac{[F]}{[t]}&=k_2[F][M],\nonumber\\
+k_1[F]&=k_{-1}[F]^2,\nonumber\\
+k_3[F]&=k_4[M]^2\nonumber,
+\end{align}
+which, in turn, provide the following scales
+\begin{align}
+[F]&=\frac{k_1}{k_{-1}},\nonumber\\
+[M]&=\sqrt{\frac{k_1k_3}{k_{-1}k_4}},\nonumber\\
+[t]&=\frac{1}{k_2}\sqrt{\frac{k_{-1}k_4}{k_1k_3}},\nonumber
+\end{align}
+}\COL{which can be substituted back into \eqns{Dim_fish_1}{Dim_fish_2} to produce
+\begin{align}
+\dot{u}&=k_1[t]\l u-u^2\r-uv, \quad u(0)=F_0\frac{k_{-1}}{k_1},\\
+\frac{[M]}{[t]k_3[F]}\dot{v}&=u-v^2,\quad v(0)=M_0\sqrt{\frac{k_{-1}k_4}{k_1k_3}},
+\end{align}
+}\COL{where from this point onwards
+\bb
+\dot{}=\rd/\rd t'.\nonumber
+\ee
+Effectively, we have dropped the prime from the variable.
+Finally, we define
+\begin{align}
+u_0&=F_0\frac{k_{-1}}{k_1},\nonumber\\
+v_0&=M_0\sqrt{\frac{k_{-1}k_4}{k_1k_3}},\nonumber\\
+\alpha&=k_1[t]=\frac{k_1}{k_2}\sqrt{\frac{k_{-1}k_4}{k_1k_3}},\nonumber\\
+\beta&=\frac{[t]k_3[F]}{[M]}=k_3\frac{k_1}{k_{-1}}\frac{1}{k_2}\sqrt{\frac{k_{-1}k_4}{k_1k_3}}\sqrt{\frac{k_{-1}k_4}{k_1k_3}}=\frac{k_4}{k_2}.\nonumber
+\end{align}
+Under these parameter definitions we have the final form of our system that we are going to investigate
+\begin{align}
+\dot{u}&=\alpha\l u-u^2\r-uv, \quad u(0)=u_0,\label{Non_dim_fish_1}\\
+\dot{v}&=\beta\l u-v^2\r,\quad v(0)=v_0.\label{Non_dim_fish_2}
+\end{align}
+
+Before we proceed with the analysis of \eqns{Non_dim_fish_1}{Non_dim_fish_2} we have to show that $u_0$, $v_0$, $\alpha$ and $\beta$ are all non-dimensional. First, we write down the dimensions of the rate variables. Using \eqns{Dim_fish_1}{Dim_fish_2} and noting that the left-hand side must have units of density/time we derive
+\begin{align}
+\textrm{dim}(k_1)&=\frac{1}{\textrm{time}},\nonumber\\
+\textrm{dim}(k_{-1})&=\frac{1}{\textrm{time}\times \textrm{density}},\nonumber\\
+\textrm{dim}(k_{2})&=\frac{1}{\textrm{time}\times \textrm{density}},\nonumber\\
+\textrm{dim}(k_{3})&=\frac{1}{\textrm{time}},\nonumber\\
+\textrm{dim}(k_{4})&=\frac{1}{\textrm{time}\times \textrm{density}}.\nonumber
+\end{align}
+}\COL{Further, we note that $F_0$ and $M_0$ have units of density. From these definitions we find that
+\begin{align}
+\textrm{dim}(u_0)&=F_0\frac{k_{-1}}{k_1}=\textrm{density}\times\frac{1}{\textrm{time}\times \textrm{density}}\times\textrm{time}=1,\nonumber\\
+\textrm{dim}(v_0)&=M_0\sqrt{\frac{k_{-1}k_4}{k_1k_3}}=\textrm{density}\times\sqrt{\frac{1}{\textrm{time}\times \textrm{density}}\times\frac{1}{\textrm{time}\times \textrm{density}}\times\textrm{time}\times\textrm{time}}=1,\nonumber\\
+\textrm{dim}(\alpha)&=k_1[t]=\frac{1}{\textrm{time}}\times \textrm{time}=1\nonumber,\\
+\textrm{dim}(\beta)&=\frac{k_4}{k_2}=\frac{1}{\textrm{time}\times \textrm{density}}\times \textrm{time}\times \textrm{density}=1.\nonumber
+\end{align}
+Thus, indeed, all parameters are non-dimensional, as desired.
+
+}\subsection{Identify steady states}
+\COL{Now, we return to considering \eqns{Non_dim_fish_1}{Non_dim_fish_2} and we begin to investigate the stability of any stationary states that exist. Specifically, steady states satisfy
+\begin{align}
+uv&=\alpha u\l 1-u\r,\label{Nullcline_fish_1}\\
+u&=v^2,\label{Nullcline_fish_2}
+\end{align}
+which we note are also the nullcline equations. Plotting the nullcline gives us some intuition as to how many steady states there will be, as well as how many of these states are `realistic'. Namely, since we are dealing with populations, we need $u_s>0$ and $v_s>0$.
+
+\fig{Multiple_alpha} illustrates \eqns{Nullcline_fish_1}{Nullcline_fish_2}, which suggests that there are two, non-negative steady states and one steady state with a negative value of $v_s$, which we can ignore. Critically, altering $\alpha>0$ does not appear to influence the number of solution or stability. However, to ensure this insight is correct we analytically extract the steady states from \eqns{Nullcline_fish_1}{Nullcline_fish_2}, to find that the steady states are $(0,0)$ and $(v_s^2,v_s)$, where $v_s$ is a solution of
+\bb
+v_s^2=1-\frac{v_s}{\alpha}\implies v_s=\frac{-1\pm\sqrt{1+4\alpha^2}}{2\alpha}.\label{Fishing_v_stst}
+\ee
+Note that we could equally well have solved the equations in terms of $u_s$. However, from \fig{Multiple_alpha}, we see that both non-trivial steady state solutions have positive values for $u_s$, thus, it is not so easy to identify the real roots. Here, we can immediately exclude $v_s=(-1-\sqrt{1+4\alpha^2})/(2\alpha)$ as being the negative root. Thus, are only concerned with $(0,0)$ and $(v_s^2,v_s)$, where
+\bb
+v_s=\frac{-1+\sqrt{1+4\alpha^2}}{2\alpha}.\nonumber
+\ee
+From the explicit form of $v_s$ we can confirm our assumption that as long as $\alpha>0$ there are always exactly two real, positive steady states.
+
+}\subsection{Calculate stability}
+\COL{The Jacobian of the system is
+\bb
+\bm{J}(u,v)=\left[ \begin {array}{cc} 
+ f_u&f_v\\
+  \noalign{\medskip}g_u &g_v\end {array} \right] =  \left[ \begin {array}{cc} \alpha\l 1-2u \r-v&-u\\ \noalign{\medskip}\beta&-2 \beta v\end {array} \right].\nonumber
+\ee
+Consider the stability of the zero steady state,
+\bb
+\bm{J}(0,0)=\left[ \begin {array}{cc} \alpha&0\\ \noalign{\medskip}\beta & 0\end {array} \right].\nonumber
+\ee
+We can immediately read off the eigenvalues of this matrix, \ie $\lambda_{1,2}=0,\alpha$. Since $\alpha>0$ then (0,0) is always an unstable node.
+Consider the stability of the non-zero steady state,
+\bb
+\bm{J}(v_s^2,v_s)=  \left[ \begin {array}{cc} \alpha\l 1-2v_s^2 \r-v_s&-v_s^2\\ \noalign{\medskip}\beta&-2 \beta v_s\end {array} \right].\nonumber
+\ee}
+\COL{The eigenvalues, $\lambda$, satisfy the auxiliary equation
+\begin{align}
+0&=\lambda^2+\lambda(2\beta v_s-\alpha(1-2v_s^2)+v_s)+\beta v_s^2-2\beta v_s\l\alpha\l 1-2v_s^2 \r-v_s \r,\nonumber\\
+&=\lambda^2+\lambda(2\alpha v_s^2 +(2\beta+1) v_s-\alpha)+4\alpha\beta v_s^3+3\beta v_s^2-2\alpha\beta v_s.\nonumber
+\end{align}
+To characterise the stability we could solve this quadratic and then consider the roots. However, in this case it is simpler to consider the trace and determinant of $\bm{J}(v_s^2,v_s)$ as discussed in \chap{Stability of ODE systems}, (see \fig{TD_stability}).
+
+Firstly, we check the determinant. Namely, if the determinant is negative then the points are guaranteed to be saddles, thus, we consider what cases lead to a negative determinant, \ie
+\bb
+4\alpha\beta v_s^3+3\beta v_s^2-2\alpha\beta v_s<0.
+\ee
+By choice $v_s>0$, so we can simplify the inequality to a quadratic
+\bb
+4\alpha\beta v_s^2+3\beta v_s-2\alpha\beta<0.
+\ee
+Equally, $v_s$ is defined by \eqn{Fishing_v_stst}, resulting in the following simplification,
+\begin{align}
+0&>4\alpha\beta\l1-\frac{v_s}{\alpha}\r+3\beta v_s-2\alpha\beta,\nonumber\\
+\implies v_s&>2\alpha,\nonumber\\
+\implies \sqrt{1+4\alpha^2}&>1+4\alpha^2,\nonumber\\
+\implies \sqrt{c}&>c,\nonumber
+\end{align}
+where $c=4\alpha^2+1>1$. But, $\sqrt{c}<c$ for $c>1$, hence, by contradiction, the determinant can never be negative. Thus, the points are never saddles, they must be either a stable or unstable node, or spiral. To determine the stability we consider the trace of the Jacobian,
+\bb
+\textrm{Tr}(\bm{J}(v_s^2,v_s))= \alpha\l 1-2v_s^2\r-v_s -2 \beta v_s.
+\ee
+}\COL{Once again, we consider under what conditions the trace is positive, making the steady state unstable,
+\begin{align}
+0&<\alpha\l 1-2v_s^2\r-v_s -2 \beta v_s,\nonumber\\
+&<\alpha\l 1-2\l 1-\frac{v_s}{\alpha}\r\r-v_s -2 \beta v_s,\nonumber\\
+\implies \alpha &< \l 1-2 \beta \r v_s.\label{Fishing_stability_inequality}
+\end{align}
+The right hand side of inequality \eqref{Fishing_stability_inequality} is a monotonically decreasing function of $\beta$, namely, the largest it can be (for $\beta\geq 0$) is when $\beta=0$. Thus, instead of inequality \eqref{Fishing_stability_inequality} we consider
+\begin{align}
+\alpha&<v_s,\nonumber\\
+\implies 1+2\alpha^2&<\sqrt{1+4\alpha^2}\nonumber\\
+\implies \alpha^4&<0,\nonumber
+\end{align}
+which is blatantly not true. Thus, by contradiction, $\l 1-2\beta \r v_s<v_s<\alpha$ and the trace must always be negative. Hence, we deduce that the non-trivial point is stable.
+
+}\COL{Our final piece of analysis should be to determine whether the point is a stable node or a stable spiral, to which end we consider
+\begin{align}
+\Delta(\alpha,\beta)=\textrm{Tr}(\bm{J})^2-4\textrm{Det}(\bm{J})&=(\alpha\l 1-2v_s^2\r-v_s -2 \beta v_s)^2-4\l 4\alpha\beta v_s^3+3\beta v_s^2-2\alpha\beta v_s\r\nonumber\\
+&=-\frac{(4\alpha^2\beta+2\alpha^2+4\beta^2+1)(-1+\sqrt{4\alpha^2+1)}}{2\alpha^2}+\alpha^2+4\beta^2+1.\label{Fishing_complex_line}
+\end{align}
+However, analysing $\textrm{Tr}(\bm{J})^2-4\textrm{Det}(\bm{J})$ through algebraic means is extremely tedious and not worth our effort since a quick plot of \eqn{Fishing_complex_line}, \fig{Fishing_complex}, demonstrates there are regions in which $\textrm{Tr}(\bm{J})^2-4\textrm{Det}(\bm{J})$ is positive and others where it is negative. Note that it is enough to show that there are values which cause \eqn{Fishing_complex_line} to evaluate to both positive and negative values, \eg $\Delta(1,1)\approx-0.798$ and $\Delta(1,2)\approx 1.31$. Hence, the steady state can be either a stable node or spiral depending on the sign of \eqn{Fishing_complex_line}.}
+
+\subsection{Plot the phase-plane}
+\COL{To finish the mathematical part of the problem off all the information derived here is sketched onto the $(u,v)$ phase plane. \fig{Multiple_alpha} shows the nullclines, so, we have to add in the directional information based on the signs of $\dot{u}$ and $\dot{v}$ in each region. Consider the region in which $u=1$ and $v\gg1$. Equations \eqref{Non_dim_fish_1} and \eqref{Non_dim_fish_2} both have negative signs, meaning that both populations are decreasing in this region, which is denoted by the left downward pointing arrow. Once one region has been identified we are able to fill all regions in turn by simply flipping the sign of one of the derivatives whenever we pass its nullcline. Namely, passing the $u$ nullcline on the left means that, in this region, $\dot{u}>0$ and $\dot{v}<0$, which is denoted by a downward right pointing arrow. See \fig{Fishing_phase_plane} for the full information.
+
+The final stage is to sketch example trajectories from each region to illustrate how the global solution with develop. Note that we have shown that $(0,0)$  is always unstable, so trajectories always tend away from $(0,0)$. Equally, we have shown the the positive steady state, $(u_s,v_s)$, can either be a stable spiral or node, so trajectories must tend towards this point. We then try to draw trajectories that take all of this information, as well as the directional arrows into account.
+
+Such solutions can be seen in \figs{Fishing_simulation_node}{Fishing_simulation_spiral}. Critically, we have plotted two images to illustrate the difference between the stable node and the stable spiral (\figs{Fishing_simulation_node}{Fishing_simulation_spiral}, }\COL{respectively). On the larger view of the phase plane there does not appear to be much difference between \figs{Fishing_simulation_node}{Fishing_simulation_spiral}. The difference is seen primarily in the zoomed in insets, where we see that the trajectories in \fig{Fishing_simulation_node} head straight to the steady state, whilst the trajectories in \fig{Fishing_simulation_spiral} do spiral into the steady state.}
+
+\subsection{What does it mean?}
+\COL{The final part of the question, and the part you will be least comfortable with, will be to ask you what does it all mean? Essentially, you have solved the problem in terms of steady states and stability, resulting in the ability to sketch the global trajectories, but we need to be able to translate our findings back into insights of the original problem.
+
+So, what have we found? The case of extinct fish is always unstable and that the non-zero steady state is always stable, although it may be a node or a spiral. This is good because it means that the fisherman regulate themselves well, \ie overfishing does not lead to a collapse of the fish population. 
+
+Further, the steady state of the system only depends on $\alpha$. From \fig{Multiple_alpha} we can see that }\COL{as $\alpha$ increases so does the population values of both $u$ and $v$. We remind ourselves that
+\bb
+\alpha=\frac{1}{k_2}\sqrt{\frac{k_1k_{-1}k_4}{k_3}},\label{alpha_fish}
+\ee
+thus, an increase in $\alpha$ follows from an increase in $k_1$, $k_{-1}$, $k_4$, or a reduction in $k_2$, or $k_3$. Note that since $k_2$ is the only parameter not within the square root, the system is, in some ways more sensitive to $k_2$  than the other parameters.
+
+Note that increasing $k_{-1}$ increases $\alpha$. Consequently, increasing $\alpha$ increases the steady state values of $u$ and $v$. Thus, we may expect that an increase in $k_{-1}$ would increase the fish and fisherman population. However, $k_{-1}$ is the competition rate between the fish populations (see \eqn{Fish_eqn_1}). This seems wrong. Why would increasing fish competition, lead to a greater fish population? The fact is it does not. We are considering $u$ and $v$ as proxies for the populations, but to understand the influence of a parameter, we have to re-dimensionalise the problem.
+
+The dimensional steady states of the system are
+\begin{align}
+F&=[F]u_s=\frac{k_1}{k_{-1}}u_s,\label{F_scale}\\
+M&=[M]v_s=\sqrt{\frac{k_1k_3}{k_{-1}k_4}}v_s,\label{M_scale}
+\end{align}
+and we note that that for all parameter values $(u_s,v_s)$ is bounded above by $(1,1)$ \see{Multiple_alpha}. Hence, \eqns{F_scale}{M_scale} demonstrate that as $k_{-1}$ increases the scales decrease. Thus, increasing fish competition will, overall, lead to a decrease in the population sizes of both fish and fishermen. Oppositely, considering \eqnto{alpha_fish}{M_scale}, we see that increasing $k_1$ (fish birth rate) leads to an increase in all populations, which makes sense.}
+\end{example}
+\begin{figure}[!!!h!!!tbp]
+\centering
+\subfigure[\label{Multiple_alpha}]{\includegraphics[width=\ttp]{../Pictures/Nullcline_multiple_alpha.png}}
+\subfigure[\label{Fishing_complex}]{\includegraphics[width=\ttp]{../Pictures/Fishing_complex.png}}
+\caption{\label{Fishing_figs} (a) Nullclines of \eqns{Non_dim_fish_1}{Non_dim_fish_2}. (b) Plotting the surface defined by \eqn{Fishing_complex_line}. The yellow region illustrates the region where $\textrm{Tr}(\bm{J})^2-4\textrm{Det}(\bm{J})>0$ making the steady state a stable node, whilst the blue region is where  $\textrm{Tr}(\bm{J})^2-4\textrm{Det}(\bm{J})<0$ and the  steady is a stable spiral.}
+\end{figure}
+\begin{figure}[!!!h!!!tbp]
+\centering
+\subfigure[\label{Fishing_phase_plane}]{\includegraphics[width=0.6\textwidth]{../Pictures/Fishing_phase_plane.png}}
+\\
+\subfigure[\label{Fishing_simulation_node}]{\includegraphics[width=\ttp]{../Pictures/Fishing_simulation_node.png}}
+\subfigure[\label{Fishing_simulation_spiral}]{\includegraphics[width=\ttp]{../Pictures/Fishing_simulation_spiral.png}}
+\caption{\label{Fishing_dyanamics} (a) Dynamics of \eqns{Non_dim_fish_1}{Non_dim_fish_2} in all regions and on the nullclines. (b), (c) Multiple simulations of \eqns{Non_dim_fish_1}{Non_dim_fish_2} with different initial conditions. In (b) the parameters are $\alpha=4$, $\beta=4$, making the steady state a stable node \see{Fishing_complex}. In (c) the parameters are $\alpha=4$, $\beta=1$, making the steady state a stable spiral \see{Fishing_complex}. The insets of each image demonstrate the dynamics very close to the steady state.}
+\end{figure} 
+
+\section{Pendulum example}
+The last example was explicitly described throughout and verbose. This example of the pendulum equation will be more terse.
+
+\begin{example}[frametitle=Pendulum]
+\COL{Consider
+\bb
+\ddot{u}=-\frac{g}{l}\sin(u), \quad u(0)=u_0, \quad \dot{u}(0)=v_0.\label{Pendulum_example}
+\ee
+Trivially, we non-dimensionalise time using the scale $[T]=\sqrt{l/g}$ and note that the angle, $u$, is already non-dimensional. Further, we let $v=\dot{u}$ to derive
+\begin{align}
+\dot{u}&=v, \quad u(0)=u_0,\label{Pen_1}\\
+\dot{v}&=-\sin(u), \quad v(0)=v_0.\label{Pen_2}
+\end{align}
+The steady states are $(n\pi,0)$, for all integers $n$. Incidentally, the lines $u=n\pi$ and $v=0$ are also the nullclines. The Jacobian is
+\bb
+\bm{J}(u,v)=  \left[ \begin {array}{cc} 0&1\\ \noalign{\medskip}-\cos(u)&0 \end {array} \right].\nonumber
+\ee
+Hence,
+\bb
+\bm{J}(n\pi,0)=  \left[ \begin {array}{cc} 0&1\\ \noalign{\medskip}-(-1)^n&0 \end {array} \right].\nonumber
+\ee
+
+The eigenvalues are
+\bb
+\lambda_\pm=\pm\sqrt{-(-1)^n}= \left\{
+        \begin{array}{ll}
+            \pm1 & \textrm{if $n$ is odd,} \\
+            \pm I & \textrm{if $n$ is even,}
+        \end{array}
+    \right.\nonumber
+\ee
+Thus, $(n\pi,0)$ is a saddle if $n$ is odd and a centre if $n$ is even. The directional data and nullclines are presented in \fig{Pendulum_phase_plane}.
+
+So, what does it all mean? Translating the results from \fig{Pendulum_dynamics} into physical intuition we see that if $v$ is small enough and $u\approx 2k\pi$, for some integer $k$, namely the angle $u$ is a small perturbation away from the downward vertical then the dynamics cycles back and forth as }\COL{the pendulum oscillates back and forth. However, if the initial velocity is large and the initial displacement, $u\approx (2k+1)\pi$, for some integer $k$, then the pendulum will continuously swing around and around.}
+\end{example}
+\begin{figure}[!!!h!!!tbp]
+\centering
+\subfigure[\label{Pendulum_phase_plane}]{\includegraphics[width=\ttp]{../Pictures/Pendulum_phase_plane.png}}
+\subfigure[\label{Pendulum_simulation}]{\includegraphics[width=\ttp]{../Pictures/Pendulum_simulation.png}}
+\caption{\label{Pendulum_dynamics} (a) Dynamics of \eqns{Pen_1}{Pen_2} in all regions and on the nullclines. (b) Multiple simulations of \eqns{Pen_1}{Pen_2} with different initial conditions.}
+\end{figure}
+
+
+\section{Check list}
+By the end of this chapter you should be able to:
+\begin{todolist}
+\item use all the tools developed throughout these notes to completely analyse a system of first order ordinary differential equations in terms of the steady states available and their stability .
+\end{todolist}
+
+
+
+
+

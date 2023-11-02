@@ -1,0 +1,135 @@
+\appendix
+\chapter{Proof of stability criterion for scalar ODE equations}\label{Proof of stability criterion for scalar ODE equations}
+Here we provide a proof of Theorem \ref{Stability_theorem}.
+\begin{proof}
+Consider a solution of the form $u(t)=u_s+\epsilon(t)$, where $|\epsilon(0)| \ll 1$. Substituting the perturbed solution into \eqn{General_ODE}, we find that
+\bb
+\dot{\epsilon}=F(u_s+\epsilon).
+\ee
+We now use Taylor's theorem on the right-hand side to derive the approximation
+\bb
+F(u_s+\epsilon)\approx F(u_s)+\epsilon \frac{\rd F}{\rd u}(u_s)+\frac{\epsilon^2}{2} \frac{\rd^2 F}{\rd u^2}(u_s)+\dots.
+\ee
+Ignoring all terms except the linear order in $\epsilon$ we conclude that initially
+\bb
+\dot{\epsilon}\approx F(u_s)+\epsilon \frac{\rd F}{\rd u}(u_s).
+\ee
+By assumption $u_s$ is a stationary point and, thus, by definition, $F(u_s)=0$. Hence, approximately,
+\bb
+\dot{\epsilon}=\epsilon \frac{\rd F}{\rd u}(u_s).\label{Linear_eqn}
+\ee
+Equation \eqref{Linear_eqn} is trivially solvable since $\rd F(u_s)/\rd u$ is a constant,
+\bb
+\epsilon(t)=\epsilon(0)\exp\l t\frac{\rd F}{\rd u}(u_s)\r.
+\ee
+The exponential solution form tells us that if $\rd F(u_s)/\rd u<0$ then $\epsilon(t)\rightarrow 0$ as $t\rightarrow \infty$. This means that our small perturbation dies out over time and the solution $u(t)\rightarrow u_s$ as $t\rightarrow \infty$. In other words $u_s$ is stable because solutions that are slightly perturbed away from $u_s$ tend to evolve back to $u_s$.
+
+Oppositely, if $\rd F(u_s)/\rd u>0$ then $\epsilon(t)\rightarrow \infty$ as $t\rightarrow \infty$. Thus, the solution diverges away from $u_s$ meaning that $u_s$ is unstable.
+\end{proof}
+
+
+
+\chapter{Proof of stability criterion for ODE systems}\label{Proof of stability criterion for ODE systems}
+Here we provide a proof of Theorem \ref{System_stability}.
+\begin{proof}
+The proof follows exactly the same strategy as Theorem \ref{Stability_theorem}. Specifically, because differentiation is linear, you can use the exact same proof, but with tensors, rather than scalars. Namely,
+consider the perturbed solution $\bm{u}(t)=\bm{u}_s+\bm{\epsilon}(t)$, where $||\bm{\epsilon}(0)|| \ll 1$. Substituting the perturbed solution into \eqn{Vec_ODE}, we find that
+\bb
+\dot{\bm{\epsilon}}=\bm{F}(\bm{u}_s+\bm{\epsilon}).
+\ee
+We now use a multi-variable form of Taylor's theorem on the right-hand side to derive the approximation
+\bb
+\dot{\bm{\epsilon}}\approx \bm{J}(\bm{u}_s)\bm{\epsilon}.\label{Approx_J}
+\ee
+To make progress, we assume $\bm{J}$ is invertible, and, thus, diagonalisable. Critically, this means that we can find a complete set of eigenvectors, $\{\bm{\nu}_1,\dots,\bm{\nu}_n\}$, and eigenvalues, $\{\lambda_1,\dots,\lambda\}$, such that $\bm{J}$ can be written as $\bm{J}=\bm{U}\bm{D}\bm{U}^{-1}$, where  $\bm{D}$ is a diagonal matrix with the eigenvalues along the diagonal, $\bm{U}$ is a matrix with the, respective, eigenvectors as the columns and $\bm{U}^{-1}$ is the inverse of $\bm{U}$. Substituting this form of $\bm{J}$ into \eqn{Approx_J} produces
+\begin{align}
+\dot{\bm{\epsilon}}&= \bm{U}\bm{D}\bm{U}^{-1}\bm{\epsilon},\\
+\implies\bm{U}^{-1}\dot{\bm{\epsilon}}&=\bm{D}\bm{U}^{-1}\bm{\epsilon}.
+\end{align}
+The matrix $\bm{U}^{-1}$ is constant so we can take it within the time derivative on the left hand side. Hence, defining $\bm{\eta}=\bm{U}^{-1}\bm{\epsilon}$, we derive
+\bb
+\dot{\bm{\eta}}=\bm{D}\bm{\eta}.\label{Vec_diag}
+\ee
+The closed form solution of \eqn{Vec_diag} is
+\bb
+\bm{\eta}=\sum^n_{i=1}\bm{a}_i \exp(\lambda_it),
+\ee
+where $\bm{a}_i$ are defined by the initial conditions. Thus, the stability of $\bm{\eta}$, and, hence, $\bm{\epsilon}$ depends on the eigenvalues, $\{\lambda_1,\dots,\lambda_n\}$ as stated in Theorem \ref{System_stability}.
+\end{proof}
+
+\chapter{Characterising the stability of a two-dimensional ODE system}\label{Characterising the stability of a two-dimensional ODE system}
+In the last Appendix we demonstrated that the stability of the steady states depends on the eigenvalues of the Jacobian. In this section, we restrict ourselves to considering two-dimensional systems only and illustrate that all steady states can be defined to fit a small number of categories.
+
+The following derivation is going to be an explicit form of the proof shown in the last section. The reason for this is that the condensed vector form of proof is less transparent and it is always good to see a full sprawling derivation to illustrate the subtleties. Critically, although you may be specifically be required to reproduce the proof, in a specific case you can generally just calculate the Jacobian straight away and not bother with the initial linearisation steps.
+
+Consider the general two-dimensional system
+\begin{align}
+\dot{u}&=f(u,v),\\
+\dot{v}&=g(u,v).
+\end{align}
+Let $(u_s,v_s)$, be a steady state, \ie $f(u_s,v_s)=g(u_s,v_s)=0$. Linearising around the steady state with $u=u_s+\epsilon_1$ and $v=v_s+\epsilon_2$ produces
+\begin{align}
+\dot{\epsilon_1}&= f(u_s+\epsilon_1,v_s+\epsilon_2),\nonumber\\
+&\approx \underbrace{f(u_s,v_s)}_{=0}+f_u(u_s,v_s)\epsilon_1+f_v(u_s,v_s)\epsilon_2.\label{Two_d_f}
+\end{align}
+and, similarly,
+\bb
+\dot{\epsilon_2}= g_u(u_s,v_s)\epsilon_1+g_v(u_s,v_s)\epsilon_2.\label{Two_d_g}
+\ee
+The eigenvalues will, thus, depend on the four parameters $(f_u,f_v,g_u,g_v)$. Note that we have not restricted the signs of these parameters. Thus, any of them could be positive or negative. Due to not knowing the signs of the derivatives we are unable to non-dimensionalise them out. However, in a specific example, this maybe possible, thus, reducing down the number of free parameter groups in the steady state and stability conditions.
+
+Combining \eqns{Two_d_f}{Two_d_g} we derive
+\bb
+\colvec{2}{\dot{\epsilon_1}}{\dot{\epsilon_2}}=\left[ \begin{array}{cc}\noalign{\medskip} f_u&f_v\\
+g_u&g_v
+\end {array} \right]\colvec{2}{\epsilon_1}{\epsilon_2}. 
+\ee
+Thus, we are left to find the eigenvalues of
+\bb
+\bm{J}=\left[ \begin{array}{cc}\noalign{\medskip} f_u&f_v\\
+g_u&g_v
+\end {array} \right],
+\ee
+namely
+\begin{align}
+\det(\bm{J}-\lambda \bm{I})&=\left[ \begin{array}{cc}\noalign{\medskip} f_u-\lambda&f_v\\
+g_u&g_v-\lambda
+\end {array} \right],\nonumber\\
+&=(f_u-\lambda)(g_v-\lambda)-f_vg_u,\nonumber\\
+&=\lambda^2-\lambda(g_v+f_u)+f_ug_v-f_vg_u\label{Aux_derivatives},\\
+&=\lambda^2-\lambda T+D\label{Aux_Jacobian},
+\end{align}
+where \eqns{Aux_derivatives}{Aux_Jacobian} are the same but \eqn{Aux_Jacobian} is rewritten in terms of the trace, `$T=\tr(\bm{J})$', and determinant, `$D=\det(\bm{J})$', of the Jacobian, $\bm{J}$. Finally, the eigenvalues of $\bm{J}$ have the form
+\bb
+\lambda_\pm=\frac{T\pm\sqrt{T^2-4D}}{2}.
+\ee
+the stability of the steady states can now be characterised solely through the dependence of $\lambda_{\pm}$ on $T$ and $D$ \see{TD_stability}. Critically, although \fig{TD_stability} is useful, it is suggested that instead of calculating the trace and determinant of the Jacobian and figuring out where in the stability diagram that you lie, you calculate the eigenvalues of any system explicitly.
+\begin{figure}[!!!h!!!tb]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round]
+  % Main diagram
+  \draw[line width=1pt,->] (0,-0.3) -- (0, 4.7) coordinate (+y);
+  \draw[line width=1pt,->] (-7,0) -- ( 7,0) coordinate (+x);
+  \draw[line width=1pt, domain=-4.5:4.5] plot (\x, {0.2*\x*\x});
+  \node at (+x) [label={[right,yshift=-0.5ex]$ T$}] {}; 
+  \node at (+y) [label={[above]$ D$}] {};
+  \node at (-4.5,4) [pin={[above]$ T^2-4D=0$}] {};
+  \node at ( 4.5,4) [pin={[above,align=left]{%
+    $ T^2-4D=0$}}] {};
+  % inlays
+  \node at (0,-1.4) {\inlay\saddle};
+  \node at (0,1.2)
+    [pin={[draw,right,xshift=0.3cm]\inlay\centre}] {};
+  \node at (-5,1) {\inlay\sink};
+  \node at ( 5,1) {\inlay\source}; 
+  \node at (-1.8,3.7) {\inlay\spiralsink};
+  \node at ( 1.8,3.7) {\inlay\spiralsource};
+\end{tikzpicture}
+\caption{\label{TD_stability}Stability diagram in terms of the trace and determinant of the Jacobian.}
+\end{figure}
+
+
+
+
+
+

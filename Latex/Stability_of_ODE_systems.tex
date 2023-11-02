@@ -1,0 +1,383 @@
+\chapter{Stability of ODE systems}\label{Stability of ODE systems}
+In the last chapter we focused on systems of single variables. We now extend our stability theory to account for any number of variables.
+
+First, we note that the definition of a steady state immediately generalises to any number of variables. Specifically, if we have $n$ variables, $\bm{u}=(u_1,\dots,u_n)$ then there must be $n$ ODEs, $\bm{F}(\bm{u})=(F_1(u_1,\dots,u_n),\dots,F_n(u_1,\dots,u_n))$, one for each variable, in order for the system to be uniquely defined. Thus, the steady states, $\bm{u}_s$, are found from solving $\bm{F}(\bm{u}_s)=0$. The derivation of linear stability also extends to higher similarly, however, we need to first define the Jacobian.
+\begin{defin}
+The Jacobian, $\bm{J}$, of an ODE system,
+\bb
+\dot{\bm{u}}=\bm{F}(\bm{u}),
+\ee
+is the matrix of partial derivatives of each function, with respect to each argument,
+\bb
+\bm{J}=\left[ \D{F_i}{u_j}\right]_{i,j=1,\dots,n}= \left[ \begin {array}{cccc} \D{F_1}{u_1}&\D{F_1}{u_2}&\dots&\D{F_1}{u_n}\\
+\noalign{\medskip}\D{F_2}{u_1}&\D{F_2}{u_2}&\dots&\D{F_2}{u_n}\\
+\noalign{\medskip}\vdots&\ddots&\ddots&\vdots\\
+\noalign{\medskip}\D{F_n}{u_1}&\D{F_n}{u_2}&\dots&\D{F_n}{u_n}
+\end {array} \right]. 
+\ee
+\end{defin}
+For brevity, it is common practice to write a partial derivative as a subscript, \ie
+\bb
+\D{F}{u}=F_u.
+\ee
+Equally, unless otherwise specified, we assume that the Jacobian is evaluated at the steady state.
+
+\begin{thm}
+Suppose $\bm{u}_s$ is a steady state of the ODE system
+\bb
+\dot{\bm{u}}=\bm{F}(\bm{u}),\label{Vec_ODE}
+\ee
+where $F$ continuously differentiable everywhere in all of its arguments and the Jacobian is locally invertible. The linear stability of $\bm{u}_s$ will depend on the eigenvalues of the Jacobian.
+\end{thm}
+\begin{proof}
+\COL{The proof follows exactly the same strategy as Theorem \ref{Stability_theorem}. Specifically, because differentiation is linear, you can use the exact same proof, but with tensors, rather than scalars. Namely,
+consider the perturbed solution $\bm{u}(t)=\bm{u}_s+\bm{\epsilon}(t)$, where $||\bm{\epsilon}(0)|| \ll 1$. Substituting the perturbed solution into \eqn{Vec_ODE}, we find that
+\bb
+\dot{\bm{\epsilon}}=\bm{F}(\bm{u}_s+\bm{\epsilon}).
+\ee
+}\COL{We now use a multi-variable form of Taylor's theorem on the right-hand side to derive the approximation
+\bb
+\dot{\bm{\epsilon}}\approx \bm{J}(\bm{u}_s)\bm{\epsilon}.\label{Approx_J}
+\ee
+To make progress, we assume $\bm{J}$ is invertible, and, thus, diagonalisable. Critically, this means that we can find a complete set of eigenvectors, $\{\bm{\nu}_1,\dots,\bm{\nu}_n\}$, and eigenvalues, $\{\lambda_1,\dots,\lambda\}$, such that $\bm{J}$ can be written as $\bm{J}=\bm{U}\bm{D}\bm{U}^{-1}$, where  $\bm{D}$ is a diagonal matrix with the eigenvalues along the diagonal, $\bm{U}$ is a matrix with the, respective, eigenvectors as the columns and $\bm{U}^{-1}$ is the inverse of $\bm{U}$. Substituting this form of $\bm{J}$ into \eqn{Approx_J} produces
+\begin{align}
+\dot{\bm{\epsilon}}&= \bm{U}\bm{D}\bm{U}^{-1}\bm{\epsilon},\\
+\implies\bm{U}^{-1}\dot{\bm{\epsilon}}&=\bm{D}\bm{U}^{-1}\bm{\epsilon}.
+\end{align}
+The matrix $\bm{U}^{-1}$ is constant so we can take it within the time derivative on the left hand side. Hence, defining $\bm{\eta}=\bm{U}^{-1}\bm{\epsilon}$, we derive
+\bb
+\dot{\bm{\eta}}=\bm{D}\bm{\eta}.\label{Vec_diag}
+\ee
+The closed form solution of \eqn{Vec_diag} is
+\bb
+\bm{\eta}=\sum^n_{i=1}\bm{a}_i \exp(\lambda_it),
+\ee
+where $\bm{a}_i$ are defined by the initial conditions. Thus, the stability of $\bm{\eta}$, and, hence, $\bm{\epsilon}$ depends on the eigenvalues, $\{\lambda_1,\dots,\lambda_n\}$.}
+\end{proof}
+
+Critically, now we are in higher dimensions, the eigenvalues can have complex values. If we let $\lambda_i=\alpha_i+\beta_iI$ then
+\bb
+\exp(\lambda_it)=\exp(\alpha t)\l\cos(\beta_it)+I\sin(\beta_it)\r.
+\ee
+Thus, real part of the eigenvalues determines the growth rate, whilst the imaginary part determines the frequency of oscillation in time. Namely, if all eigenvalues have negative real parts the small perturbations die out. However, if there is at least one eigenvalue with positive real part then the perturbations will grow and the steady state is not stable.
+
+\section{Steady state classification of two-dimensional systems}
+In the last section we demonstrated that the stability of the steady states depends on the eigenvalues of the Jacobian. In this section, we restrict ourselves to considering two-dimensional systems only and illustrate that all steady states can be defined to fit a small number of categories.
+
+The following derivation is going to be an explicit form of the proof shown in the last section. The reason for this is that the condensed vector form of proof is less transparent and it is always good to see a full sprawling derivation to illustrate the subtleties. Critically, although you may be specifically be required to reproduce the proof, in a specific case you can generally just calculate the Jacobian straight away and not bother with the initial linearisation steps.
+
+Consider the general two-dimensional system
+\begin{align}
+\dot{u}&=f(u,v),\\
+\dot{v}&=g(u,v).
+\end{align}
+Let $(u_s,v_s)$, be a steady state, \ie $f(u_s,v_s)=g(u_s,v_s)=0$. Linearising around the steady state with $u=u_s+\epsilon_1$ and $v=v_s+\epsilon_2$ produces
+\begin{align}
+\dot{\epsilon_1}&= f(u_s+\epsilon_1,v_s+\epsilon_2),\nonumber\\
+&\approx \underbrace{f(u_s,v_s)}_{=0}+f_u(u_s,v_s)\epsilon_1+f_v(u_s,v_s)\epsilon_2.\label{Two_d_f}
+\end{align}
+and, similarly,
+\bb
+\dot{\epsilon_2}= g_u(u_s,v_s)\epsilon_1+g_v(u_s,v_s)\epsilon_2.\label{Two_d_g}
+\ee
+The eigenvalues will, thus, depend on the four parameters $(f_u,f_v,g_u,g_v)$. Note that we have not restricted the signs of these parameters. Thus, any of them could be positive or negative. Due to not knowing the signs of the derivatives we are unable to non-dimensionalise them out. However, in a specific example, this maybe possible, thus, reducing down the number of free parameter groups in the steady state and stability conditions.
+
+Combining \eqns{Two_d_f}{Two_d_g} we derive
+\bb
+\colvec{2}{\dot{\epsilon_1}}{\dot{\epsilon_2}}=\left[ \begin{array}{cc}\noalign{\medskip} f_u&f_v\\
+g_u&g_v
+\end {array} \right]\colvec{2}{\epsilon_1}{\epsilon_2}. 
+\ee
+Thus, we are left to find the eigenvalues of
+\bb
+\bm{J}=\left[ \begin{array}{cc}\noalign{\medskip} f_u&f_v\\
+g_u&g_v
+\end {array} \right],
+\ee
+\COL{namely
+\begin{align}
+\det(\bm{J}-\lambda \bm{I})&=\left[ \begin{array}{cc}\noalign{\medskip} f_u-\lambda&f_v\\
+g_u&g_v-\lambda
+\end {array} \right],\nonumber\\
+&=(f_u-\lambda)(g_v-\lambda)-f_vg_u,\nonumber\\
+&=\lambda^2-\lambda(g_v+f_u)+f_ug_v-f_vg_u\label{Aux_derivatives},\\
+&=\lambda^2-\lambda T+D\label{Aux_Jacobian},
+\end{align}
+where \eqns{Aux_derivatives}{Aux_Jacobian} are the same but \eqn{Aux_Jacobian} is rewritten in terms of the trace, `$T=\tr(\bm{J})$', and determinant, `$D=\det(\bm{J})$', of the Jacobian, $\bm{J}$. Finally, the eigenvalues of $\bm{J}$ have the form
+\bb
+\lambda_\pm=\frac{T\pm\sqrt{T^2-4D}}{2}.
+\ee
+We are now going to characterise the stability of the steady state through the dependence of $\lambda_{\pm}$ on $T$ and $D$.}
+
+\subsection{$D<0$}
+If $D<0$ then $\lambda_\pm$ are both real. Moreover $T^2-4D>T^2$, thus $\lambda_-<0<\lambda_+$. Since one of the eigenvalues has positive real part the steady state is unstable. More specifically, it is called a `saddle point'.
+\begin{defin}
+A steady state is a \textbf{saddle point} if not all of the real parts of the eigenvalues have the same sign. 
+\end{defin}
+For a more intuitive understanding such a steady state is called a saddle point because the trajectories want to converge along one direction and diverge along another \see{Saddle}, \ie the energy surface around the steady state is shaped like a saddle.
+\begin{figure}[!!!h!!!tb]
+\centering
+\includegraphics[width=\ttp]{../Pictures/Saddle.png}
+\caption{\label{Saddle}A Saddle shaped surface. If a marble is placed at the top of the surface its trajectory will initially tend to the centre, before diverging to infinity.}
+\end{figure}
+\begin{example}[frametitle=Saddle point]
+Consider the system
+\begin{align}
+\dot{u}&=u/(v+2),\label{Saddle_1}\\
+\dot{v}&=-v/(u+1)\label{Saddle_2}.
+\end{align}
+\COL{The unique steady state is $(u,v)=(0,0)$. The Jacobian is
+\bb
+\bm{J}=\left[ \begin {array}{cc} 
+ \frac{1}{v+2}&-\frac{u}{\l v+2 \r^2}\\
+  \noalign{\medskip}\frac{v}{ \l u+1
+ \r^2} &-\frac{1}{ u+1}\end {array} \right] \implies \bm{J}(0,0)=\left[ \begin {array}{cc} 
+ \frac{1}{2}&0\\
+  0 &-1\end {array} \right].
+\ee
+If a matrix is upper (or lower) triangular then the diagonal elements are the eigenvalues, thus, we clearly see that $\lambda_-=-1<0<1=\lambda_+$. \fig{Saddle_point} illustrates solutions of the equations for multiple initial conditions. We observe that in all cases one of the coordinates converges to a fixed value, whilst the other grows without bound. For example, the yellow trajectory has initial condition $(u_0,v_0)=(1/2,-1/2)$. In the left image of \fig{Saddle_point} the yellow curve diverges, whilst it converges to zero in the central image, \ie $(u,v)\rightarrow(\infty,0)$.}
+\end{example}
+\begin{figure}[!!!h!!!tb]
+\centering
+\includegraphics[width=\tp]{../Pictures/Saddle_point.png}
+\caption{\label{Saddle_point}Saddle point system trajectories, solutions of \eqns{Saddle_1}{Saddle_2}. Left: plot of $(u,t)$ for different initial conditions. Middle: plot of $(v,t)$ for different initial conditions. Right: plot of $(u,v)$ combining the solutions from the left and middle plots. Trajectories from the same initial conditions have the line colour across all three figures. All trajectories have a least one coordinate that grows without bound.}
+\end{figure}
+
+\subsection{$D>0$}
+If $D>0$ then the eigenvalues may be real or imaginary. However, what is certain is $T^2-4D<T^2$. Thus the sign of the real part of the eigenvalue depends on the sign of $T$. Hence, we break this subsection up into to further cases.
+
+\subsubsection{$T=0$}
+If $T=0$ then the eigenvalues are purely imaginary, $\textrm{Re}(\lambda_-)= \textrm{Re}(\lambda_+)=0$. This means that the linear analysis suggests that the trajectories neither growing, nor shrinking, the trajectories, simply oscillate around the steady state. Such points are called centre points.
+
+Note that this is a marginal case and higher order terms may still cause the system to converge or diverge, but slowly, thus, although the linear analysis says that the trajectory simply oscillates we should go to higher orders to check, but this is outside the scope of this course.
+\begin{example}[frametitle=Centre point]\label{Centre_example}
+Consider the system
+\begin{align}
+\dot{u}&=-v-u^2,\label{Centre_1}\\
+\dot{v}&=u+v^2\label{Centre_2}.
+\end{align}
+\COL{The unique steady state is $(u,v)=(0,0)$. The Jacobian is
+\bb
+\bm{J}=\left[ \begin {array}{cc} 
+ -2u&-1\\
+  \noalign{\medskip}1 &2v\end {array} \right] \implies \bm{J}(0,0)=\left[ \begin {array}{cc} 
+ 0&-1\\
+  1 &0\end {array} \right].
+\ee
+The eigenvalues are $\lambda_\pm=\pm I$. \fig{Saddle_point} illustrates solutions of the equations for multiple initial conditions. We observe that trajectories close enough to $(0,0)$ produce closed oscillatory orbits. However, further away from zero, the trajectories diverge.}
+\end{example}
+\begin{figure}[!!!h!!!tb]
+\centering
+\includegraphics[width=\tp]{../Pictures/Centre.png}
+\caption{\label{Centre}Stable system trajectories, solutions of \eqns{Centre_1}{Centre_2}. Left: plot of $(u,t)$ for different initial conditions. Middle: plot of $(v,t)$ for different initial conditions. Right: plot of $(u,v)$ combining the solutions from the left and middle plots. Trajectories from the same initial conditions have the line colour across all three figures.}
+\end{figure}
+Example \ref{Centre_example} demonstrates well that our analysis is only valid near the steady state. Namely, three out of the four initial conditions appear to form closed loops that oscillate around (0,0) (see the right image of \fig{Centre}). However, one of the initial conditions diverges away.
+
+
+
+\subsubsection{$T<0$}
+If $T<0$ then $\textrm{Re}(\lambda_-)\leq \textrm{Re}(\lambda_+)<0$ and, so, all eigenvalues have negative real part, meaning that the steady state is stable. This case can further be sub-divided depending on the sign of $T^2-4D$. Namely, if $T^2-4D>0$ the steady state is a stable node whilst if $T^2-4D<0$ the steady state is a stable spiral.
+\begin{example}[frametitle=Stable node]
+Consider the system
+\begin{align}
+\dot{u}&=-u+v,\label{Stable_1}\\
+\dot{v}&=-v/(u+1)\label{Stable_2}.
+\end{align}
+\COL{The unique steady state is $(u,v)=(0,0)$. The Jacobian is
+\bb
+\bm{J}=\left[ \begin {array}{cc} 
+ -1&1\\
+  \noalign{\medskip}\frac{v}{ \l u+1
+ \r^2} &-\frac{1}{ u+1}\end {array} \right] \implies \bm{J}(0,0)=\left[ \begin {array}{cc} 
+ -1&1\\
+  0 &-1\end {array} \right].
+\ee
+The eigenvalues are $\lambda_\pm=-1<0$. \fig{Saddle_point} illustrates solutions of the equations for multiple initial conditions. We observe that in all cases the trajectories converge to (0,0).}
+\end{example}
+\begin{figure}[!!!h!!!tb]
+\centering
+\includegraphics[width=\tp]{../Pictures/Stable_node.png}
+\caption{\label{Stable_node}Stable system trajectories, solutions of \eqns{Stable_1}{Stable_2}. Left: plot of $(u,t)$ for different initial conditions. Middle: plot of $(v,t)$ for different initial conditions. Right: plot of $(u,v)$ combining the solutions from the left and middle plots. Trajectories from the same initial conditions have the line colour across all three figures. All trajectories converge to (0,0).}
+\end{figure}
+\begin{example}[frametitle=Stable spiral]
+Consider the system
+\begin{align}
+\dot{u}&=-\frac{u}{1+v}+v,\label{St_Spiral_1}\\
+\dot{v}&=-u+\frac{v}{v+2}\label{St_Spiral_2}.
+\end{align}
+The unique steady state is $(u,v)=(0,0)$. The Jacobian is
+\bb
+\bm{J}=\left[ \begin {array}{cc} 
+ -\frac{1}{1+v}&\frac{v^2+u+2v+1}{(1+v)^2}\\
+  \noalign{\medskip}-1 &\frac{2}{ (2+v)^2}\end {array} \right] \implies \bm{J}(0,0)=\left[ \begin {array}{cc} 
+ -1&1\\
+  -1 &\frac{1}{2}\end {array} \right].
+\ee
+\COL{The eigenvalues are $\lambda_\pm=-1/4\pm \sqrt{7}/4I$. \fig{St_spiral_node} illustrates solutions of the equations for multiple initial conditions. We observe that in all cases the trajectories converge to (0,0), whilst spiralling.}
+\end{example}
+\begin{figure}[!!!h!!!tb]
+\centering
+\includegraphics[width=\tp]{../Pictures/St_spiral_node.png}
+\caption{\label{St_spiral_node}Saddle point system trajectories, solutions of \eqns{Stable_1}{Stable_2}. Left: plot of $(u,t)$ for different initial conditions. Middle: plot of $(v,t)$ for different initial conditions. Right: plot of $(u,v)$ combining the solutions from the left and middle plots. Trajectories from the same initial conditions have the line colour across all three figures. All trajectories converge to (0,0).}
+\end{figure}
+\subsubsection{$T>0$}
+Opposite to the previous case $0<\textrm{Re}(\lambda_-)\leq \textrm{Re}(\lambda_+)$ and, so, all eigenvalues have positive real part, meaning that the steady state is unstable. Similar to the previous naming convention, if $T^2-4D>0$ the steady state is an unstable node whilst if $T^2-4D<0$ the steady state is a unstable spiral.
+\begin{example}[frametitle=Unstable node]
+Consider the system
+\begin{align}
+\dot{u}&=\frac{u}{1+v^2},\label{Unstable_1}\\
+\dot{v}&=u+v/(2+v^2)\label{Unstable_2}.
+\end{align}
+The unique steady state is $(u,v)=(0,0)$. The Jacobian is
+\bb
+\bm{J}=\left[ \begin {array}{cc} 
+ \frac{1}{1+v^2}&-\frac{2uv}{(1+v^2)^2}\\
+  \noalign{\medskip} 1 &-\frac{v^2-2}{(2+v^2)^2}\end {array} \right] \implies \bm{J}(0,0)=\left[ \begin {array}{cc} 
+ 1&0\\
+  1 &\frac{1}{2}\end {array} \right].
+\ee
+\COL{The eigenvalues are $0<\lambda_-=1/2<\lambda_+=1$. \fig{Unstable_node} illustrates solutions of the equations for multiple initial conditions. We observe that in all cases the trajectories diverge away from (0,0).}
+\end{example}
+\begin{figure}[!!!h!!!tb]
+\centering
+\includegraphics[width=\tp]{../Pictures/Unstable_node.png}
+\caption{\label{Unstable_node}Unstable system trajectories, solutions of \eqns{Unstable_1}{Unstable_2}. Left: plot of $(u,t)$ for different initial conditions. Middle: plot of $(v,t)$ for different initial conditions. Right: plot of $(u,v)$ combining the solutions from the left and middle plots. Trajectories from the same initial conditions have the line colour across all three figures. All trajectories diverge away from (0,0).}
+\end{figure}
+\begin{example}[frametitle=Unstable spiral]
+Consider the system
+\begin{align}
+\dot{u}&=\frac{u}{1+v^2}+v,\label{Ust_spiral_1}\\
+\dot{v}&=-u+\frac{v}{v^2+2}\label{Ust_spiral_2}.
+\end{align}
+\COL{The unique steady state is $(u,v)=(0,0)$. The Jacobian is
+\bb
+\bm{J}=\left[ \begin {array}{cc} 
+ \frac{1}{1+v^2}&1-\frac{u}{(1+v^2)^2}\\
+  \noalign{\medskip}-1 &\frac{2-v^2}{ (2+v^2)^2}\end {array} \right] \implies \bm{J}(0,0)=\left[ \begin {array}{cc} 
+ 1&1\\
+  -1 &\frac{1}{2}\end {array} \right].
+\ee
+The eigenvalues are $\lambda_\pm=3/4\pm \sqrt{15}/4$. \fig{St_spiral_node} illustrates solutions of the equations for multiple initial conditions. We observe that in all cases the trajectories diverge away from (0,0), whilst spiralling clockwise.}
+\end{example}
+\begin{figure}[!!!h!!!tb]
+\centering
+\includegraphics[width=\tp]{../Pictures/Ust_spiral_node.png}
+\caption{\label{Ust_spiral_node}Unstable spiral system trajectories, solutions of \eqns{Ust_spiral_1}{Ust_spiral_2}. Left: plot of $(u,t)$ for different initial conditions. Middle: plot of $(v,t)$ for different initial conditions. Right: plot of $(u,v)$ combining the solutions from the left and middle plots. Trajectories from the same initial conditions have the line colour across all three figures. All trajectories diverge away from (0,0).}
+\end{figure}
+
+\section{Comments}
+Note that we do not consider the marginal cases $D=0$ or $T^2=4D$. This is because these cases need to be approached on a case by case basis, because it is the non-linear terms which may dominate the kinetics. Even in the case $T=0$, where we generate centre points, we have seen that the analysis breaks down when the initial condition is too far away from the steady state.
+
+All of the above definitions can be encompassed in a single diagram of the $(T,D)$ plane \see{TD_stability}. Critically, although \fig{TD_stability} is useful, it is suggested that instead of calculating the trace and determinant of the Jacobian and figuring out where in the stability diagram that you lie, you calculate the eigenvalues of any system explicitly.
+\begin{figure}[!!!h!!!tb]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round]
+  % Main diagram
+  \draw[line width=1pt,->] (0,-0.3) -- (0, 4.7) coordinate (+y);
+  \draw[line width=1pt,->] (-7,0) -- ( 7,0) coordinate (+x);
+  \draw[line width=1pt, domain=-4.5:4.5] plot (\x, {0.2*\x*\x});
+  \node at (+x) [label={[right,yshift=-0.5ex]$ T$}] {}; 
+  \node at (+y) [label={[above]$ D$}] {};
+  \node at (-4.5,4) [pin={[above]$ T^2-4D=0$}] {};
+  \node at ( 4.5,4) [pin={[above,align=left]{%
+    $ T^2-4D=0$}}] {};
+  % inlays
+  \node at (0,-1.4) {\inlay\saddle};
+  \node at (0,1.2)
+    [pin={[draw,right,xshift=0.3cm]\inlay\centre}] {};
+  \node at (-5,1) {\inlay\sink};
+  \node at ( 5,1) {\inlay\source}; 
+  \node at (-1.8,3.7) {\inlay\spiralsink};
+  \node at ( 1.8,3.7) {\inlay\spiralsource};
+\end{tikzpicture}
+\caption{\label{TD_stability}Stability diagram in terms of the trace and determinant of the Jacobian.}
+\end{figure}
+
+%In order to simplify the system we non-dimensionalise \eqns{Two_d_f}{Two_d_g}
+%\begin{align}
+%\tikzmark{a}\dot{\epsilon_1}&=f_u\tikzmark{b}\epsilon_1+f_v\epsilon_2,\\
+%\tikzmark{e}\dot{\epsilon_2}&=g_u\tikzmark{f}\epsilon_1+g_v\epsilon_2.
+%\tikz[overlay,remember picture]
+%{\draw[square arrow1] (a.south) to (b.south);}
+%\tikz[overlay,remember picture]
+%{\draw[square arrow1] (e.south) to (f.south);}
+%\end{align}
+%
+%\ee
+%\ee
+%\begin{align}
+%\dot{\epsilon_1}&= f(u_s+\epsilon_1,v_s+\epsilon_1),\\
+%\dot{\epsilon_2}&= g(u_s+\epsilon_1,v_s+\epsilon_1).
+%\end{align}
+%Hence, if the real part of all the eigenvalues is negative then the exponential functions decay over time, regardless the value of the imaginary component. However, if at least one eigenvalue has positive real part then the perturbation will grow and the solution is then unstable. Finally, if the real part of all eigenvalues is zero, but the imaginary part is not then we case a centre
+
+
+%\begin{example}[frametitle=Failure]
+%As mentioned not all balances are valid, which is what we will seen in this example%Consider the following ODE system
+%\begin{align}
+%  \tikzmark{a}\dot{u}=k_0\tikzmark{b}+k_1\tikzmark{c}u-k_2uv, \quad u(0)=u_0,\label{Non-dim_9}\\
+% \nonumber \\
+%    \tikzmark{e}\dot{v}=k_3\tikzmark{f}+k_4\tikzmark{g}v-k_2uv, \quad v(0)=v_0.\label{Non-dim_10}
+%\tikz[overlay,remember picture]
+%{\draw[square arrow1] (a.south) to (b.south);}
+%\tikz[overlay,remember picture]
+%{\draw[square arrow1] (b.south) to (c.south);}
+%\tikz[overlay,remember picture]
+%{\draw[square arrow1] (e.south) to (g.south);}
+%%\end{align}
+%There are three variables $u$, $v$ and $t$ and so we need three balances. The chosen balances are illustrated on the equations using arrows. Extracting information from the balances we find that
+%\bb
+%\frac{[u]}{[t]}=k_0=k_1[u], \quad \frac{[v]}{[t]}=k_4[v].
+%\ee
+%From this point we quickly discover that
+%\bb
+%[t]=\frac{1}{k_1} \textrm{ and } [t]=\frac{1}{k_4}.
+%\ee
+%Since, generally, $k_1\neq k_4$ we cannot satisfy both balances, thus, we must consider a different non-dimensionalisation.
+%
+%One possible valid non-dimensionalisation is
+%\begin{align}
+%  \tikzmark{a}\dot{u}=k_0\tikzmark{b}+k_1\tikzmark{c}u-k_2uv, \quad u(0)=u_0,\nonumber\\
+% \nonumber \\
+%    \tikzmark{e}\dot{v}=k_3\tikzmark{f}+k_4\tikzmark{g}v-k_2uv, \quad v(0)=v_0.\nonumber
+%\tikz[overlay,remember picture]
+%{\draw[square arrow1] (a.south) to (b.south);}
+%\tikz[overlay,remember picture]
+%{\draw[square arrow1] (b.south) to (c.south);}
+%\tikz[overlay,remember picture]
+%{\draw[square arrow1] (e.south) to (f.south);}
+%\end{align}
+%See your problem sheets for details.
+%\end{example}
+
+
+%\begin{figure}[!!!h!!!tb]
+%\centering
+%\subfigure[\label{IC_0.1}]{\includegraphics[width=\ttp]{../Pictures/Comparing_pendulums_IC_1.png}}
+%\subfigure[\label{IC_1}]{\includegraphics[width=\ttp]{../Pictures/Comparing_pendulums_IC_10.png}}
+%\caption{\label{Different_ICs}Comparing \eqns{Spring_eqn}{Bob_eqn} with initial conditions (a) $y=0=\theta$ and (b) $y=1=\theta$. Parameter values $r=g=k=m=1$.}
+%\end{figure}
+%
+%
+%\begin{example}[frametitle=Zombies]\label{Zombies}
+%Humans, $H$ and zombies, $Z$ interact through the following three interactions \see{Zombie_picture}]:
+%\end{example}
+%\begin{figure}[!!!h!!!tb]
+%\centering
+%\includegraphics[width=\tp]{../Pictures/Zombies.png}
+%\caption{\label{Zombie_picture} Possible outcomes of human-zombie interactions.}
+%\end{figure}
+
+\section{Check list}
+By the end of this chapter you should be able to:
+\begin{todolist}
+\item derive the steady states of an ODE system;
+\item prove that the stability of a steady state depends on the eigenvalues of the Jacobian of a system;
+\item explicitly derive the eigenvalues of the Jacobian of a two-species system;
+\item use the eigenvalues to characterise steady states in terms of whether they are  centres, (un)stable nodes, (un)stable spirals or saddle points.
+\end{todolist}
+
+
+
+
+
