@@ -1,0 +1,99 @@
+\subsection{Answers}
+\begin{enumerate}
+\item
+\bb
+\UB{\D{a}{t}}{Evolution of the morphogen}=\UB{D_a\DD{a}{x}}{Diffusion of the morphogen}+\UB{k_1n}{Creation of the morphogen}-\UB{k_2a}{Degradation of the morphogen}.
+\ee
+
+
+\item From \fig{Motion_types} we can right down the evolution of $n_i=n(x)$ in terms of $n_{i\pm 1}=n(x\pm\Delta x)$ and $a_{i\pm 1}=a(x\pm\Delta x)$,
+\bb
+\dot{n}_i=D'_n\l n_{i-1}-2n_i+n_{i+1}\r+\chi' \l a_in_{i+1}-a_{i-1}n_i+a_in_i-a_{i+1}n_{i+1} \r.
+\ee
+Using
+\bb
+u_{i\pm1}=u_i\pm \D{u_i}{x}+\frac{1}{2}\DD{u_i}{x}+O(\Delta x^3)
+\ee
+to expand all the terms we find that
+\bb
+\dot{n}_i=D'_n\Delta x^2 \DD{n_i}{x}-\chi'\Delta x^2 \l n_i\DD{a_i}{x}+\D{n_i}{x}\D{a_i}{x} \r.
+\ee
+Letting $D_n=D'_n\Delta x^2$ and $\chi=\chi'\Delta_x^2$ be finite we take $\Delta x\rightarrow 0$ and simplify to
+\bb
+\D{n}{t}=D_n\DD{n}{x}-\chi\D{}{x}\l n\D{a}{x}\r.
+\ee
+
+\item Searching for the homogeneous steady state means we ignore all derivatives. However, that means \eqn{n} does not provide any information. However, the zero-flux boundary conditions means that the $n$ population is neither created, degraded, nor is it able to leave the domain. Thus, the homogeneous steady state is found by averaging out the total initial density across the entire domain,
+\bb
+n_s=\lim_{L\rightarrow \infty}\frac{1}{2L}\int^L_{-L} n(x,0) \rd x.
+\ee
+Call this $n_0$.
+From \eqn{a} we find that the steady state satisfies $a_s=n_s=n_0$.
+
+\item We substitute the perturbation
+\bb
+\l\begin{array}{c}
+n\\
+a
+\end{array}\r
+=
+\l\begin{array}{c}
+n_0\\
+n_0
+\end{array}\r
++
+\l\begin{array}{c}
+\epsilon_1\\
+\epsilon_2
+\end{array}\r\exp(\lambda t)\cos(kx).
+\ee
+into \eqns{n}{a} and derive
+\begin{align}
+\lambda\cos(kx)\exp(\lambda t)\l\begin{array}{c}
+\epsilon_1\\
+\epsilon_2
+\end{array}\r
+=
+-k^2\cos(kx)\exp(\lambda t)\l\begin{array}{cc}
+D_c & 0\\
+0 & D_a
+\end{array}\r\l\begin{array}{c}
+\epsilon_1\\
+\epsilon_2
+\end{array}\r
++
+\cos(kx)\exp(\lambda t)\l\begin{array}{c}
+n_0\chi k^2\epsilon_2\\
+\epsilon_1-\epsilon_2
+\end{array}\r.
+\end{align}
+Upon simplification
+\bb
+\l\begin{array}{cc}
+-k^2D_c-\lambda & n_0\chi k^2\\
+1 & -k^2D_a-\lambda-1
+\end{array}\r\l\begin{array}{c}
+\epsilon_1\\
+\epsilon_2
+\end{array}\r=\bm{0}.
+\ee
+We now invoke the result that the determinant of the matrix must be zero in order to have a non-trivial solution for $(\epsilon_1,\epsilon_2)$. Thus,
+\bb
+0=(-k^2D_c-\lambda)(-k^2D_a-\lambda-1)-n_0\chi k^2=\lambda^2+\lambda(k^2D_a+k^2D_c+1)+k^4D_cD_a+k^2(D_c-n_0\chi).
+\ee
+For an instability to happen at least one root, $\lambda$, must be positive,
+\bb
+2\lambda_\pm=-(k^2D_a+k^2D_c+1)\pm\sqrt{(k^2D_a+k^2D_c+1)^2-4\l k^4D_cD_a+k^2(D_c-n_0\chi)\r}.
+\ee
+Thus, we require
+\bb
+0>k^4D_cD_a+k^2(D_c-n_0\chi)=k^2D_cD_a\l k^2+\frac{(D_c-n_0\chi)}{D_cD_a}\r.\label{Quad_k}
+\ee
+Since inequality \eqref{Quad_k} is a positive quartic then we need
+\bb
+\frac{(D_c-n_0\chi)}{D_cD_a}<0, \implies D_c<n_0\chi
+\ee
+
+\item $\chi$ is the chemotactic parameter, increasing it means that the cells become more attracted to the diffusing morphogen. Thus, even if initially the cells do not pattern eventually $\chi$ will increase to a point that satisfies the condition $D_c<n_0\chi$. Thus, the population will eventually pattern.
+\end{enumerate}
+

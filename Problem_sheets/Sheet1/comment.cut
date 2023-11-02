@@ -1,0 +1,33 @@
+\subsection{Answers}
+\begin{enumerate}
+\item $N$ and $P$ are undergoing a predator-prey reaction, with $N$ as the prey and $P$ as the predator. This is because whenever $N$ and $P$ interact through the $NP$ term the $N$ population decreases, whilst the $P$ population increases. In the absence of predator, $N$ will manage its population logistically, whilst in the absence of prey, $P$ will die out.
+\item Note the following are not unique, so if you have a variation on those below, as long as they still work that is fine.
+\begin{align}
+N&\mathrel{\mathop{\rightleftarrows}^{r}_{r/K}}N+N,\\
+P&\stackrel{m}{\rightarrow}\slashed{0},\\
+N+P&\stackrel{b}{\rightarrow}(1+e)P.
+\end{align}
+\item Let $N=[N]u, P=[P]v$ and $t=[t]\tau$. Where $u,v$ and $\tau$ are non-dimensional and $[N]$, $[P]$ and $[t]$ are dimensional constants. Substituting these into \eqns{N}{P} we derive
+\begin{align}
+\frac{[N]}{[t]}\frac{\rd u}{\rd \tau} =&r[N]u\l 1- \frac{[N]u}{K}\r-b[N][P]uv,\label{NondimN}\\
+\frac{[P]}{[t]}\frac{\rd v}{\rd \tau} =&eb[N][P]uv-m[P]v.\label{NondimP}
+\end{align}
+Rearranging we get
+\begin{align}
+\frac{\rd u}{\rd \tau} =&[t]ru\l 1- \frac{u[N]}{K}\r-b[t][P]uv,\label{Nondimu}\\
+\frac{\rd v}{\rd \tau} =&eb[N][t]uv-m[t]v.\label{Nondimv}
+\end{align}
+Comparing \eqns{Nondimu}{Nondimv} to \eqns{u}{v} we see that we want to fix $[N]=K$, $[t]=1/m$ and $[P]=1/(b[t])=m/b$. From these we can see that $c_1=[t]r=r/m$ and $c_2=eb[N][t]=ebK/m$.
+\item Since $m$ is the predator death rate and $r$ is the reproduction time scale $c_1=r/m$ is, thus, non-dimensional as it is a ratio of time-scales. Critically, it measures the system's robustness to change. For example, if $c_1$ is very large then $r$ is very large (meaning a high birth rate), or $m$ is very small (low death rate). In this case perturbations to the systems will have small effects. Alternatively is $c_1$ is small (\ie small birth rate, or large death rate) the system is much more fragile to interference.
+
+$eb$ is the gain of predator from every predator-prey interaction, $m$ is predator death rate, thus, $eb/m$ is a net measure of how many predators are gained in every interaction.  $K$ is carrying capacity of the domain, \ie the maximum number of prey. Thus $c_2=eb/m \times K$ is the \textit{maximum predator fecundity}, it is a measure of how large the predator population can be.
+\item Considering the interpretations of $c_1$ and $c_2$ from the previous question we see that to reduce the predator population we want to reduce $c_2$. Altering $c_1$ simply changes the time scale on which the alterations happen.
+
+\item Since $c_2=ebK/m$ then to reduce the predator population we can either decrease $e$, $b$, or $K$, or increase $m$. Critically, reducing $K$ would reduce the carrying capacity of the prey, which we do not want to do. Thus, we are left with altering $e$, $b$, or $m$. Considering each of these in turn,
+\begin{itemize}
+\item decreasing $e$ represents reducing the ability of the predator to turn food into reproduction. One unlikely way of achieving this is reduce the nutritional value of the prey. Not only would this be difficult, but it will probably also reduce the profitability of our prey stock. An alternative and more widely used way is releasing sterilised predators into the wild. Although the predators will continue to pre-date, they will not be able to reproduce and, thus, we can drive the predators to extinction. However, this is often a slow and costly strategy.
+\item decreasing $b$ represents reducing predation encounters. Thus, we could increase security around the prey, essentially isolating them from attack. This is one reason why battery farming is cheaper, namely fewer chickens are lost to wild animal attacks. This is often a cheaper strategy than above, but we have to question the humanity of isolating the animal from its natural habitat.
+\item increasing $m$ represents killing the predator, perhaps through poison, or active predator hunting. Again, we have to question the humanity of this option as well as the cost-benefit when compared with decreasing $b$.
+\end{itemize}
+As for best strategy? As long as you have considered some of the above points, and maybe others you can think of, then any defensible position will be based on the specifics of a given case. For example, it is easier to wipe out a pest like termites than it is to wipe out a fox population. Equally, mixed strategies are often the most beneficial, namely, sterilisation alongside culling, alongside prey protection.
+\end{enumerate}

@@ -1,0 +1,46 @@
+\subsection{Answers}
+\begin{enumerate}
+\item Using the standard conversion process
+\bb
+\D{u}{t}-c\D{u}{z}=\D{}{z}\l u\D{u}{z}\r+u(1-u).\label{Density_dependent_fisher}
+\ee
+
+\item Since we are looking for a travelling wave with a stationary profile the $t$ derivative is dropped. Equally, since $u_z=c(u-1)$ then
+\bb
+u_{zz}=cu_z=c^2(u-1).
+\ee
+Substituting these constraints into \eqn{Density_dependent_fisher} we get
+\begin{align}
+0=&c^2(u-1)+c^2u(u-1)+c^2(u-1)^2+u(1-u), \quad \textrm{(since $u\not\equiv 1$ we divide through be the term $u-1$)} \nonumber\\
+\implies 0=&c^2+c^2u+c^2(u-1)-u,\nonumber\\
+\implies 0=&2c^2u-u, \quad \textrm{(since $u\not\equiv 0$ we divide through be the term $u$)}\nonumber \\
+\implies &c=\frac{1}{\sqrt{2}}.
+\end{align}
+
+\item The general  solution of $u_z=c(u-1)$ is
+\bb
+u(z)=B\exp(cz)+1.
+\ee
+The constant $B$ is fixed by knowing an initial condition, say at $z=0$. Although, $z=0$ corresponds to many points the answers should be the same at all points because the wave profile is stationary. We will simply take $x=0$ and $t=0$. Using the initial condition from the question $u(x,0)=0$, this means that $B=-1$.
+
+We now consider the boundary conditions of the initial system. As $z\rightarrow-\infty$ we have that $u\rightarrow 1$. This is automatically satisfied for all $B$ as $\exp(cz)\rightarrow 0$ for all $c>0$. As $z\rightarrow \infty$ we have that $u(z)\rightarrow 0$. However, $u(z)\rightarrow-\infty$, which is not possible. Thus, we create a piecewise solution, namely,
+\bb
+u(z)=\left\{\begin{array}{l}1-\exp(cz)  \textrm{ for } z<A,\\0 \textrm{ for } z\geq A.\end{array}\right.
+\ee
+To ensure continuity $A$ is the point at which
+\begin{align}
+0=&1-\exp(cA),\\
+\implies A=&0.
+\end{align}
+Thus, a travelling wave solution to the original to the original equation is
+\bb
+u(x,t)=\left\{\begin{array}{l}1-\exp(c(x-ct))  \textrm{ for } x<ct,\\0 \textrm{ for } x\geq ct,\end{array}\right.
+\ee
+where $c=1/\sqrt{2}$.
+\item See \fig{Exponential_travelling_wave.png}. We see that the profile has a negative exponential shape until it hits $u=0$, where thereafter it is identically zero.
+\begin{figure}[h!!!tb]
+\centering
+\includegraphics[width=\ttp]{../../Pictures/Exponential_travelling_wave.png}
+\caption{Solution to question \ref{Sketch_question}. \label{Exponential_travelling_wave.png}}
+\end{figure}
+\end{enumerate}

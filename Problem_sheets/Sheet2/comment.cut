@@ -1,0 +1,40 @@
+\subsection{Answers}
+\begin{enumerate}
+\item It is a reproduction model with rate $r$ and carrying capacity $K$.
+\item Solving
+\bb
+N=N\exp\l r\l 1-\frac{N}{K}\r\r,
+\ee
+gives $N=0,K$.
+The stability of the steady states are derived from considering the size of $f'(N)$ at the steady states,
+\begin{align}
+f'(N)&=\frac{\rd}{\rd N}\l N\exp\l r\l 1-\frac{N}{K}\r\r\r,\\
+&=\exp\l r\l 1-\frac{N}{K}\r\r \l 1-\frac{Nr}{K}\r.
+\end{align}
+Thus, $f'(0)=\exp(r)>1$ for all $r>0$, hence 0 is always unstable. Further,
+\bb
+f'(K)=1-r.
+\ee
+Thus, $N=K$ is stable for $0<r<2$ and unstable for $r>2$.
+\item See the answer to $r=1$ below. Note the point of this question was that you should try and sketch the curve yourself, before copying the printed versions.
+
+
+\item Firstly, we note that the steady is independent of $r$, so, when $K=1$, the steady states are always $N=0$ and 1.
+\begin{itemize}
+\item When $r<2$ the analysis and the cobweb both suggest that $N=0$ is unstable and $N=1$ is globally stable.
+
+\item When $r>2$ the analysis suggest that $N=1$ is unstable but we do not know what happens then. From the cobweb we see that when $r=2.1$ the trajectories tend to a period 2 oscillatory state.
+
+\item When $r=3$ the cobweb suggests a chaotic trajectory.
+
+
+\end{itemize}
+
+\begin{figure}[h!!!tb]
+\centering
+\subfigure[$r=1$\label{r_1_cobweb}]{\includegraphics[width=\ttp]{../../Pictures/Ricker_cobweb_r1.png}}
+\subfigure[$r=2.1$\label{r_21_cobweb}]{\includegraphics[width=\ttp]{../../Pictures/Ricker_cobweb_r21.png}}
+\subfigure[$r=3$\label{r_3_cobweb}]{\includegraphics[width=\ttp]{../../Pictures/Ricker_cobweb_r3.png}}
+\caption{\label{Ricker_cobweb} Cobwebbed solutions of the discrete Ricker model for different values of $r$ (specified beneath each figure). In all case $K=1$. The red, green and magenta lines show trajectories with different starting points. Red starts at $N_0=0.1$, green starts at $N_0=3$ and magenta starts at $N_0=4$.}
+\end{figure}
+\end{enumerate}

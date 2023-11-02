@@ -1,0 +1,46 @@
+\subsection{Answers}
+Note that the following suggestions are non-unique (as illustrated in case 2), so if you have a different suggestion you could be right.
+\begin{enumerate}
+\item Things to notice:
+\begin{itemize}
+\item the boundaries are fixed to two different values;
+\item the profile of $u$ decays away from the boundaries.
+\end{itemize}
+Using these two pieces of information the follow reaction-diffusion equation should give a steady profile similar to \fig{q1}, for appropriate values of $D$ and $\gamma$.
+\bb
+\D{u}{t}=D\DD{u}{x}-\gamma u,
+\ee
+\bb
+u(0,t)=S, \quad u(L,t)=S/2.
+\ee
+
+\item Since the entire profile is flat the boundaries could either be fixed at $S=0$, or they could be zero-flux. One potential equation behind this system is:
+\bb
+\D{u_1}{t}=D\DD{u_1}{x},
+\ee
+\bb
+u_1(0,t)=S, \quad u_1(L,t)=S.
+\ee
+Another potential is
+\bb
+\D{u_2}{t}=D\DD{u_2}{x}+ru_2(S-u_2),
+\ee
+\bb
+\D{u_2}{x}(0,t)=0=\D{u_2}{x}(L,t).
+\ee
+
+\item We note that the steady state is a combination of two heterogeneous morphogens that are out of phase. This suggests using a reaction-diffusion system. Equally, the morphogen profile at the boundaries is `flat', which suggests zero-flux boundary conditions. Hence, we need a system of the following form
+\begin{align}
+&\D{u}{t}=D_u\D{u}{x}+f(u,v),\\
+&\D{v}{t}=D_v\D{v}{x}+g(u,v),
+\end{align}
+\bb
+\D{v}{x}(0,t)=\D{u}{x}(0,t)=0=\D{u}{x}(L,t)=\D{v}{x}(L,t),
+\ee
+such that $f$ and $g$ satisfy the Turing instability inequalities (see \eqns{T1}{T3}). Additionally, because the populations are out of phase we know that the Jacobian of partial derivatives must satisfy the cross kinetic pattern,
+\bb
+J=\left[ \begin {array}{cc} + & + \\ - & -\end {array} \right].
+\ee
+If you had gotten this far I would be happy with this answer. However, pushing your memory a little further you might remember that the Schnakenberg kinetics are Turing unstable and produce out of phase patterns and, thus, would make a satisfactory choice for $f$ and $g$.
+\end{enumerate}
+
