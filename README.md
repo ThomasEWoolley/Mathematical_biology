@@ -1,5 +1,5 @@
 ![A vector field](https://github.com/ThomasEWoolley/Modelling_with_Differential_Equations/blob/main/Pictures/Front_image.png)
-
+![Turing patterns](https://github.com/ThomasEWoolley/Mathematical_biology/Pictures/Spots_to_stripes_2.png)
 # Mathematical Biology
 These files provide an entire set of notes and problem sheets for a course in Mathematical Biology. The course covers topics such as constitutive laws, steady states, discrete modelling and partial differential equations.
 
@@ -42,7 +42,7 @@ Like the latex notes the question and answers are provided in a single .tex docu
 
 ![Two simulations of the three body problem with slightly different initial conditions](
 https://github.com/ThomasEWoolley/Modelling_with_Differential_Equations/blob/main/Pictures/3BP.gif)
-
+![Simulated diffusion with different boundary conditions](https://github.com/ThomasEWoolley/Mathematical_biology/Matlab/Diffusions.gif)
 # Course contents
 Below I reproduce the sections that appear in the latex notes.
 
